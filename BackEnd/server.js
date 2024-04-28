@@ -3,7 +3,7 @@ import express from "express";
 import AuthRoutes from "./routes/auth.routes.js";
 import MessageRoutes from "./routes/message.routes.js";
 import UserRoutes from "./routes/user.routes.js";
-
+import cors from "cors";
 import connectToMongo from "./db/CoonectMongo.js";
 import { env } from 'node:process';
 import dotenv from "dotenv"
@@ -16,6 +16,15 @@ const app=express();
 // app.get('/',(req,res,next)=>{
 //    res.send("<h1>Helluo therkre </h1>");
 // });
+
+app.use(
+
+    cors({
+        origin:"http://localhost:3000",
+        methods:["GET","POST"],
+    })
+);
+
 
 app.use(express.json());
 app.use(cookieParser());
