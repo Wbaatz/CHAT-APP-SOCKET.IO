@@ -7,24 +7,25 @@ import cors from "cors";
 import connectToMongo from "./db/CoonectMongo.js";
 import { env } from 'node:process';
 import dotenv from "dotenv"
+import path from "node:path";
 import cookieParser from "cookie-parser";
+import { app ,server} from "./socket/socket.js";
 dotenv.config();
-const app=express();
+
+const __dirname = path.resolve();
 
 
 
-// app.get('/',(req,res,next)=>{
-//    res.send("<h1>Helluo therkre </h1>");
-// });
 
-app.use(
-
-    cors({
+app.use(cors({
+    
         origin:"http://localhost:3000",
         credentials:true,
+        methods:["GET","POST"]
        
-    })
-);
+    
+}))
+
 
 
 app.use(express.json());
@@ -35,9 +36,11 @@ app.use("/api/messages",MessageRoutes);
 app.use("/api/users",UserRoutes);
 
 
-
-
-app.listen(env.port,()=> {
+app.use(express.static(path.join(__dirname, "/FrontEnd/dist")));
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "FrontEnd", "dist", "index.html"));
+});
+server.listen(env.port,()=> {
    
   
     connectToMongo();

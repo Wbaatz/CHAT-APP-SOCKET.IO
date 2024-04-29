@@ -13,7 +13,7 @@ const GenTokenAndSetCookie =(userid,res)=>{
        
     });
      
-    console.log("Cookie set:", token);
+  
 };
 
 export default  GenTokenAndSetCookie;
