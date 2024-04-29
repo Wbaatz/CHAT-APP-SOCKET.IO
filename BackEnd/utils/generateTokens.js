@@ -5,11 +5,15 @@ const GenTokenAndSetCookie =(userid,res)=>{
       expiresIn:'30d'
     });
 
-    res.cookie("jwt",token,{
+    res.cookie('jwt',token,{
         maxAge:15*24*60*60*1000,
         httpOnly:true,
-        sameSite:"strict"
+        sameSite: 'None',
+        secure: true 
+       
     });
+     
+    console.log("Cookie set:", token);
 };
 
 export default  GenTokenAndSetCookie;
